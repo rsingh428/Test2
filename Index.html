@@ -8,7 +8,7 @@
 <style>
   body {
     margin: 0;
-    font-family: 'Georgia', serif;
+    font-family: Georgia, serif;
     background: linear-gradient(120deg, #ff9a9e, #fad0c4);
     color: #4a2c2a;
     text-align: center;
@@ -45,7 +45,6 @@
     max-width: 600px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    animation: fadeIn 2s ease;
   }
 
   .message {
@@ -113,7 +112,6 @@
     background: rgba(0,0,0,0.9);
     color: white;
     z-index: 9999;
-    display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -123,10 +121,6 @@
 </head>
 
 <body>
-
-<audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
 
 <h1>Happy Valentine’s Day, Yamini ❤️</h1>
 <div class="heart">💖</div>
@@ -144,7 +138,6 @@
 <div class="card">
   <h2>One Question 💌</h2>
   <p class="message">Will you be my Valentine?</p>
-
   <div class="buttons">
     <button onclick="sayYes()">YES ❤️</button>
     <button id="noBtn" onclick="noClicked()" onmouseover="moveNo()">NO 😜</button>
@@ -191,17 +184,15 @@
   }
   typeText();
 
-  /* COUNTDOWN */
-  const targetDate = new Date("2026-02-14T19:00:00").getTime(); // change date/time if needed
-
+  /* Countdown */
+  const targetDate = new Date("2026-02-14T19:00:00").getTime();
   setInterval(() => {
     const now = new Date().getTime();
     const diff = targetDate - now;
-
     if (diff > 0) {
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
       document.getElementById("countdown").innerHTML =
         `${d} days ${h} hours ${m} minutes 💗`;
     } else {
@@ -218,6 +209,11 @@
     noCount++;
     if (noCount >= 2) {
       document.getElementById("hackModal").style.display = "flex";
+
+      // 📳 Phone vibration pattern
+      if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200, 100, 400]);
+      }
     }
   }
 
@@ -230,5 +226,20 @@
   function moveNo() {
     const btn = document.getElementById("noBtn");
     btn.style.transform =
-      `translate(${M
+      `translate(${Math.random()*200-100}px, ${Math.random()*60}px)`;
+  }
 
+  /* Floating hearts */
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+</script>
+
+</body>
+</html>
