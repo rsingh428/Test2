@@ -54,6 +54,11 @@
     min-height: 60px;
   }
 
+  .countdown {
+    font-size: 1.3em;
+    margin-top: 10px;
+  }
+
   .buttons {
     margin-top: 20px;
     position: relative;
@@ -132,6 +137,11 @@
 </div>
 
 <div class="card">
+  <h2>Countdown to Our Date ⏳</h2>
+  <div class="countdown" id="countdown"></div>
+</div>
+
+<div class="card">
   <h2>One Question 💌</h2>
   <p class="message">Will you be my Valentine?</p>
 
@@ -145,13 +155,13 @@
   Made with love, just for you 💞
 </footer>
 
-<!-- HACK MODAL (NO CLOSE OPTION) -->
+<!-- HACK MODAL -->
 <div id="hackModal">
   <div>
     <h1>⚠️ SECURITY ALERT ⚠️</h1>
     <p style="font-size:1.2em; margin-top:20px;">
-      Your iPhone 16 Pro has been hacked!!<br><br>
-      
+      Your iPhone 16 Pro has been hacked !!<br><br>
+    
     </p>
     <button onclick="forceYes()" style="
       margin-top:30px;
@@ -181,6 +191,24 @@
   }
   typeText();
 
+  /* COUNTDOWN */
+  const targetDate = new Date("2026-02-14T19:00:00").getTime(); // change date/time if needed
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff > 0) {
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      document.getElementById("countdown").innerHTML =
+        `${d} days ${h} hours ${m} minutes 💗`;
+    } else {
+      document.getElementById("countdown").innerHTML = "It’s time ❤️";
+    }
+  }, 1000);
+
   function sayYes() {
     alert("YAY!! ❤️ I knew it 😘💘");
   }
@@ -202,20 +230,4 @@
   function moveNo() {
     const btn = document.getElementById("noBtn");
     btn.style.transform =
-      `translate(${Math.random()*200-100}px, ${Math.random()*60}px)`;
-  }
-
-  /* Floating hearts */
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "floating-heart";
-    heart.innerText = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 500);
-</script>
-
-</body>
-</html>
+      `translate(${M
