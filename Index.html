@@ -109,6 +109,7 @@
 
 <body>
 
+<!-- Background Music -->
 <audio autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
@@ -132,7 +133,7 @@
 
   <div class="buttons">
     <button onclick="sayYes()">YES ❤️</button>
-    <button id="noBtn" onmouseover="moveNo()">NO 😜</button>
+    <button id="noBtn" onclick="noClicked()" onmouseover="moveNo()">NO 😜</button>
   </div>
 </div>
 
@@ -141,9 +142,9 @@
 </footer>
 
 <script>
+  /* Typing animation */
   const text = "Yamini, being with you makes even ordinary days feel special. I just wanted to remind you how much you mean to me 💕";
   let i = 0;
-
   function typeText() {
     if (i < text.length) {
       document.getElementById("typingText").innerHTML += text.charAt(i);
@@ -153,7 +154,8 @@
   }
   typeText();
 
-  const targetDate = new Date("2026-02-14T19:00:00").getTime();
+  /* Countdown */
+  const targetDate = new Date("2026-02-14T19:00:00").getTime(); // change if needed
   setInterval(() => {
     const now = new Date().getTime();
     const diff = targetDate - now;
@@ -169,16 +171,29 @@
     }
   }, 1000);
 
+  /* Button logic */
   function sayYes() {
     alert("YAY!! ❤️ I knew it 😘💘");
+  }
+
+  let noCount = 0;
+  function noClicked() {
+    noCount++;
+    if (noCount >= 2) {
+      alert(
+        "⚠️ Security Alert ⚠️\n\nYour iPhone 16 Pro has been hacked!!"
+      );
+      noCount = 0;
+    }
   }
 
   function moveNo() {
     const btn = document.getElementById("noBtn");
     btn.style.transform =
-      `translate(${Math.random()*200-100}px, ${Math.random()*60}px)`;
+      `translate(${Math.random() * 200 - 100}px, ${Math.random() * 60}px)`;
   }
 
+  /* Floating hearts */
   setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "floating-heart";
