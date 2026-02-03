@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentine’s Day ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+    color: #4a2c2a;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  h1 {
+    margin-top: 40px;
+    font-size: 2.7em;
+    animation: fadeIn 2s ease;
+  }
+
+  .heart {
+    font-size: 2em;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    background: white;
+    margin: 30px auto;
+    padding: 25px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    animation: fadeIn 2s ease;
+  }
+
+  .message {
+    font-size: 1.2em;
+    line-height: 1.6;
+    min-height: 60px;
+  }
+
+  .countdown {
+    font-size: 1.3em;
+    margin-top: 10px;
+  }
+
+  .buttons {
+    margin-top: 20px;
+    position: relative;
+    height: 90px;
+  }
+
+  button {
+    background: #ff5e7e;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    font-size: 1em;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  button:hover {
+    background: #ff3f63;
+    transform: scale(1.1);
+  }
+
+  #noBtn {
+    position: absolute;
+    background: #aaa;
+  }
+
+  footer {
+    margin: 30px 0;
+    font-size: 0.9em;
+  }
+
+  .floating-heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(0); opacity: 0.7; }
+    to { transform: translateY(-100vh); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<h1>Happy Valentine’s Day, Yamini ❤️</h1>
+<div class="heart">💖</div>
+
+<div class="card">
+  <h2>Hey Yamini 💕</h2>
+  <p class="message" id="typingText"></p>
+</div>
+
+<div class="card">
+  <h2>Countdown to Our Date ⏳</h2>
+  <div class="countdown" id="countdown"></div>
+</div>
+
+<div class="card">
+  <h2>One Question 💌</h2>
+  <p class="message">Will you be my Valentine?</p>
+
+  <div class="buttons">
+    <button onclick="sayYes()">YES ❤️</button>
+    <button id="noBtn" onmouseover="moveNo()">NO 😜</button>
+  </div>
+</div>
+
+<footer>
+  Made with love, just for you 💞
+</footer>
+
+<script>
+  const text = "Yamini, being with you makes even ordinary days feel special. I just wanted to remind you how much you mean to me 💕";
+  let i = 0;
+
+  function typeText() {
+    if (i < text.length) {
+      document.getElementById("typingText").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeText, 50);
+    }
+  }
+  typeText();
+
+  const targetDate = new Date("2026-02-14T19:00:00").getTime();
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff > 0) {
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      document.getElementById("countdown").innerHTML =
+        `${d} days ${h} hours ${m} minutes 💗`;
+    } else {
+      document.getElementById("countdown").innerHTML = "It’s time ❤️";
+    }
+  }, 1000);
+
+  function sayYes() {
+    alert("YAY!! ❤️ I knew it 😘💘");
+  }
+
+  function moveNo() {
+    const btn = document.getElementById("noBtn");
+    btn.style.transform =
+      `translate(${Math.random()*200-100}px, ${Math.random()*60}px)`;
+  }
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+</script>
+
+</body>
+</html>
