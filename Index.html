@@ -17,7 +17,7 @@
 
   h1 {
     margin-top: 40px;
-    font-size: 2.7em;
+    font-size: 2.6em;
     animation: fadeIn 2s ease;
   }
 
@@ -52,11 +52,6 @@
     font-size: 1.2em;
     line-height: 1.6;
     min-height: 60px;
-  }
-
-  .countdown {
-    font-size: 1.3em;
-    margin-top: 10px;
   }
 
   .buttons {
@@ -104,12 +99,26 @@
     from { transform: translateY(0); opacity: 0.7; }
     to { transform: translateY(-100vh); opacity: 0; }
   }
+
+  /* HACK MODAL */
+  #hackModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    color: white;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
 </style>
 </head>
 
 <body>
 
-<!-- Background Music -->
 <audio autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
@@ -120,11 +129,6 @@
 <div class="card">
   <h2>Hey Yamini 💕</h2>
   <p class="message" id="typingText"></p>
-</div>
-
-<div class="card">
-  <h2>Countdown to Our Date ⏳</h2>
-  <div class="countdown" id="countdown"></div>
 </div>
 
 <div class="card">
@@ -141,9 +145,32 @@
   Made with love, just for you 💞
 </footer>
 
+<!-- HACK MODAL (NO CLOSE OPTION) -->
+<div id="hackModal">
+  <div>
+    <h1>⚠️ SECURITY ALERT ⚠️</h1>
+    <p style="font-size:1.2em; margin-top:20px;">
+      Your iPhone 16 Pro has been hacked!!<br><br>
+      
+    </p>
+    <button onclick="forceYes()" style="
+      margin-top:30px;
+      padding:15px 30px;
+      font-size:1em;
+      border:none;
+      border-radius:30px;
+      background:#ff5e7e;
+      color:white;
+      cursor:pointer;
+    ">
+      OK FINE… YES 💖
+    </button>
+  </div>
+</div>
+
 <script>
-  /* Typing animation */
-  const text = "Yamini, being with you makes even ordinary days feel special. I just wanted to remind you how much you mean to me 💕";
+  /* Typing effect */
+  const text = "Yamini, you make everything brighter just by being you. I wanted to make something small but special for you 💕";
   let i = 0;
   function typeText() {
     if (i < text.length) {
@@ -154,24 +181,6 @@
   }
   typeText();
 
-  /* Countdown */
-  const targetDate = new Date("2026-02-14T19:00:00").getTime(); // change if needed
-  setInterval(() => {
-    const now = new Date().getTime();
-    const diff = targetDate - now;
-
-    if (diff > 0) {
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      document.getElementById("countdown").innerHTML =
-        `${d} days ${h} hours ${m} minutes 💗`;
-    } else {
-      document.getElementById("countdown").innerHTML = "It’s time ❤️";
-    }
-  }, 1000);
-
-  /* Button logic */
   function sayYes() {
     alert("YAY!! ❤️ I knew it 😘💘");
   }
@@ -180,17 +189,20 @@
   function noClicked() {
     noCount++;
     if (noCount >= 2) {
-      alert(
-        "⚠️ Security Alert ⚠️\n\nYour iPhone 16 Pro has been hacked!!"
-      );
-      noCount = 0;
+      document.getElementById("hackModal").style.display = "flex";
     }
+  }
+
+  function forceYes() {
+    document.getElementById("hackModal").style.display = "none";
+    sayYes();
+    noCount = 0;
   }
 
   function moveNo() {
     const btn = document.getElementById("noBtn");
     btn.style.transform =
-      `translate(${Math.random() * 200 - 100}px, ${Math.random() * 60}px)`;
+      `translate(${Math.random()*200-100}px, ${Math.random()*60}px)`;
   }
 
   /* Floating hearts */
